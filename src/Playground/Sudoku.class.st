@@ -458,13 +458,13 @@ Sudoku class >> with: aBoard [
 	^ s
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 Sudoku >> boards [
 
 	^ boards
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 Sudoku >> boards: anObject [
 
 	boards := anObject
@@ -472,42 +472,45 @@ Sudoku >> boards: anObject [
 
 { #category : #private }
 Sudoku >> findMostPromisingProspect: aBoard [
+	"aBoard -> Tuple(position, Set(possible cell values at this position))"
 
-	| m r c b res |
+	| m r c b res rcb posValues pv |
 	res := OrderedCollection new.
 	m := Array2D rows: 9 columns: 9 contents: aBoard.
 	1 to: 9 * 9 do: [ :i |
-		(aBoard at: i) = 0 ifTrue: [ "empty cell"
-			r := ((self class rows at: i) value: m) asSet. "cell values in row of position i"
-			c := ((self class cols at: i) value: m) asSet. "cell values in column of position i"
-			b := ((self class blocks at: i) value: m) asSet. "cell values in block of position i"
+		(aBoard at: i) isZero ifTrue: [
+			r := ((self class rows at: i) value: m) asSet. "cell values of row of position i"
+			c := ((self class cols at: i) value: m) asSet. "cell values of column of position i"
+			b := ((self class blocks at: i) value: m) asSet. "cell values of block of position i"
+			rcb := (r union: c) union: b.
+			posValues := (1 to: 9) asSet difference: rcb. "possible values in position i"
+			pv := posValues reject: [ :n | n isZero ]. "filter out empty cell value (0)"
 			res add: {
 					i.
-					(((1 to: 9) asSet difference: ((r union: c) union: b)) select: [
-						 :n | n ~= 0 ]) } ]. "numbers that can be set at position i"
-		res sort: [ :t1 :t2 | t1 second size < t2 second size ] ]. "sort by least number of values"
-	^ res first "first is the best prospect; returns pos and possible cell values"
+					pv } ].
+		res sort: [ :t1 :t2 | t1 second size < t2 second size ] ]. "sort by least number of possible values"
+	^ res first "first in the list is the best prospect"
 ]
 
 { #category : #utilities }
 Sudoku >> isSolved: aBoard [
 
-	1 to: 9 * 9 do: [ :i | (aBoard at: i) = 0 ifTrue: [ ^ false ] ].
+	1 to: 9 * 9 do: [ :i | (aBoard at: i) isZero ifTrue: [ ^ false ] ].
 	^ true
 ]
 
 { #category : #api }
 Sudoku >> solve [
 
-	| b b1 posNumbers pos numbers |
+	| b b1 bestCandidate pos cellValues |
 	b := boards dequeue.
 	(self isSolved: b)
-		ifTrue: [ ^ b ] "we found a solution"
-		ifFalse: [ "we generate more boards and put it in the boards queue"
-			posNumbers := self findMostPromisingProspect: b.
-			pos := posNumbers first.
-			numbers := posNumbers second.
-			numbers do: [ :n |
+		ifTrue: [ ^ b ]
+		ifFalse: [
+			bestCandidate := self findMostPromisingProspect: b.
+			pos := bestCandidate first.
+			cellValues := bestCandidate second.
+			cellValues do: [ :n | "we generate more boards and put it in the boards queue"
 				b1 := b copy.
 				b1 at: pos put: n.
 				boards enqueue: b1 ].
