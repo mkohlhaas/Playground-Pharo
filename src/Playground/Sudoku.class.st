@@ -284,7 +284,7 @@ Sudoku >> isSolved: aBoard [
 Sudoku >> solve [
 
 	| b b1 posNumbers pos numbers |
-	b := self boards dequeue.
+	b := boards dequeue.
 	(self isSolved: b)
 		ifTrue: [ ^ b ] "we found a solution"
 		ifFalse: [ "we generate more boards and put it in the boards queue"
