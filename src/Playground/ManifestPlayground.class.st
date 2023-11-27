@@ -29,7 +29,6 @@ b9 := m1 atRows: #(7 8 9) columns: #(7 8 9).
 
 ""rows""
 r1 := m1 atRows: #(1) columns: #(1 2 3 4 5 6 7 8 9).
-
 r2 := m1 atRows: #(2) columns: #(1 2 3 4 5 6 7 8 9).
 r3 := m1 atRows: #(3) columns: #(1 2 3 4 5 6 7 8 9).
 r4 := m1 atRows: #(4) columns: #(1 2 3 4 5 6 7 8 9).
