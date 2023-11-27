@@ -236,43 +236,6 @@ Sudoku >> findMostPromisingProspect: aBoard [
 	^ res first "first is the best prospect; returns pos and possible cell values"
 ]
 
-{ #category : #initialization }
-Sudoku >> initialize [ 
-
-Rows := {[:b | self class r1: b] . [:b | self class r1: b] . [:b | self class r1: b] . [:b | self class r1: b] . [:b | self class r1: b] . [:b | self class r1: b] . [:b | self class r1: b] . [:b | self class r1: b] . [:b | self class r1: b] .
-         [:b | self class r2: b] . [:b | self class r2: b] . [:b | self class r2: b] . [:b | self class r2: b] . [:b | self class r2: b] . [:b | self class r2: b] . [:b | self class r2: b] . [:b | self class r2: b] . [:b | self class r2: b] .
-         [:b | self class r3: b] . [:b | self class r3: b] . [:b | self class r3: b] . [:b | self class r3: b] . [:b | self class r3: b] . [:b | self class r3: b] . [:b | self class r3: b] . [:b | self class r3: b] . [:b | self class r3: b] .
-         [:b | self class r4: b] . [:b | self class r4: b] . [:b | self class r4: b] . [:b | self class r4: b] . [:b | self class r4: b] . [:b | self class r4: b] . [:b | self class r4: b] . [:b | self class r4: b] . [:b | self class r4: b] .
-         [:b | self class r5: b] . [:b | self class r5: b] . [:b | self class r5: b] . [:b | self class r5: b] . [:b | self class r5: b] . [:b | self class r5: b] . [:b | self class r5: b] . [:b | self class r5: b] . [:b | self class r5: b] .
-         [:b | self class r6: b] . [:b | self class r6: b] . [:b | self class r6: b] . [:b | self class r6: b] . [:b | self class r6: b] . [:b | self class r6: b] . [:b | self class r6: b] . [:b | self class r6: b] . [:b | self class r6: b] .
-         [:b | self class r7: b] . [:b | self class r7: b] . [:b | self class r7: b] . [:b | self class r7: b] . [:b | self class r7: b] . [:b | self class r7: b] . [:b | self class r7: b] . [:b | self class r7: b] . [:b | self class r7: b] .
-         [:b | self class r8: b] . [:b | self class r8: b] . [:b | self class r8: b] . [:b | self class r8: b] . [:b | self class r8: b] . [:b | self class r8: b] . [:b | self class r8: b] . [:b | self class r8: b] . [:b | self class r8: b] .
-         [:b | self class r9: b] . [:b | self class r9: b] . [:b | self class r9: b] . [:b | self class r9: b] . [:b | self class r9: b] . [:b | self class r9: b] . [:b | self class r9: b] . [:b | self class r9: b] . [:b | self class r9: b] }.
-
-Cols := {[:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] .
-         [:b | self class c1: b] . [:b | self class c2: b] . [:b | self class c3: b] . [:b | self class c4: b] . [:b | self class c5: b] . [:b | self class c6: b] . [:b | self class c7: b] . [:b | self class c8: b] . [:b | self class c9: b] }.
-
-Blocks := {[:b | self class b1: b] . [:b | self class b1: b] . [:b | self class b1: b] . [:b | self class b2: b] . [:b | self class b2: b] . [:b | self class b2: b] . [:b | self class b3: b] . [:b | self class b3: b] . [:b | self class b3: b] .
-           [:b | self class b1: b] . [:b | self class b1: b] . [:b | self class b1: b] . [:b | self class b2: b] . [:b | self class b2: b] . [:b | self class b2: b] . [:b | self class b3: b] . [:b | self class b3: b] . [:b | self class b3: b] .
-           [:b | self class b1: b] . [:b | self class b1: b] . [:b | self class b1: b] . [:b | self class b2: b] . [:b | self class b2: b] . [:b | self class b2: b] . [:b | self class b3: b] . [:b | self class b3: b] . [:b | self class b3: b] .
-           [:b | self class b4: b] . [:b | self class b4: b] . [:b | self class b4: b] . [:b | self class b5: b] . [:b | self class b5: b] . [:b | self class b5: b] . [:b | self class b6: b] . [:b | self class b6: b] . [:b | self class b6: b] .
-           [:b | self class b4: b] . [:b | self class b4: b] . [:b | self class b4: b] . [:b | self class b5: b] . [:b | self class b5: b] . [:b | self class b5: b] . [:b | self class b6: b] . [:b | self class b6: b] . [:b | self class b6: b] .
-           [:b | self class b4: b] . [:b | self class b4: b] . [:b | self class b4: b] . [:b | self class b5: b] . [:b | self class b5: b] . [:b | self class b5: b] . [:b | self class b6: b] . [:b | self class b6: b] . [:b | self class b6: b] .
-           [:b | self class b7: b] . [:b | self class b7: b] . [:b | self class b7: b] . [:b | self class b8: b] . [:b | self class b8: b] . [:b | self class b8: b] . [:b | self class b9: b] . [:b | self class b9: b] . [:b | self class b9: b] .
-           [:b | self class b7: b] . [:b | self class b7: b] . [:b | self class b7: b] . [:b | self class b8: b] . [:b | self class b8: b] . [:b | self class b8: b] . [:b | self class b9: b] . [:b | self class b9: b] . [:b | self class b9: b] .
-           [:b | self class b7: b] . [:b | self class b7: b] . [:b | self class b7: b] . [:b | self class b8: b] . [:b | self class b8: b] . [:b | self class b8: b] . [:b | self class b9: b] . [:b | self class b9: b] . [:b | self class b9: b] }.
-
-
-
-]
-
 { #category : #utilities }
 Sudoku >> isSolved: aBoard [
 
